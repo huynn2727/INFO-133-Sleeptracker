@@ -1,0 +1,40 @@
+.datetime-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
+    height: 100%;
+    text-align: center;
+    padding: 16px;
+  }
+  
+  .datetime-wrapper ion-datetime {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .sleepiness-descriptions {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sleepiness-descriptions ion-card-content {
+    text-align: left;
+  }
+  
+  .sleepiness-descriptions h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+  
+  .sleepiness-descriptions h3 {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+    font-weight: bold;
+  }
+  
+  .sleepiness-descriptions p {
+    font-size: 1rem;
+    color: #555;
+  }
+  

@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Sleepiness</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="cancel()">
+        <ion-icon name="close" color="white"></ion-icon>
+        Cancel
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2>Log Sleepiness</h2>
+  <ion-item>
+    <ion-label>Sleepiness Scale</ion-label>
+    <ion-select [(ngModel)]="loggedValue" interface="popover">
+      <ion-select-option *ngFor="let val of [1,2,3,4,5,6,7]" [value]="val">
+        {{ val }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Date & Time</ion-label>
+    <ion-button fill="outline" (click)="showPicker = true">
+      {{ loggedAt | date:'medium' }}
+    </ion-button>
+  </ion-item>
+  <ion-datetime
+    [(ngModel)]="loggedAt"
+    presentation="date-time"
+    [max]="maxDate"
+    (ionChange)="onDateTimeChange($event)"
+    (ionDismiss)="showPicker = false"
+  ></ion-datetime>
+
+  <ion-button expand="block" color="primary" (click)="save()">
+    Save
+  </ion-button>
+
+  <ion-card class="sleepiness-descriptions ion-margin-top">
+    <ion-card-content>
+      <h2>Sleepiness Scale Descriptions</h2>
+      <ion-list>
+        <ion-item *ngFor="let description of sleepinessScaleLevels; let i = index" lines="none">
+          <ion-label>
+            <h3>Level {{ i + 1 }}:</h3>
+            <p>{{ description }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

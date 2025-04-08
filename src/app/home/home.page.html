@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Sleep Tracker</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-padding" *ngIf="selectedSegment === 'overnight'">
+    <ion-card-content>
+      <h2>Weekly Sleep Summary</h2>
+      <p>Total Sleep (Last 7 Days): {{ totalSleepHoursThisWeek | number:'1.1-2' }} hours</p>
+      <p>Average Sleep: {{ averageSleepHoursThisWeek | number:'1.1-2' }} hours/night</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="ion-padding" *ngIf="selectedSegment === 'sleepiness'">
+    <ion-card-content>
+      <h2>Sleepiness Summary</h2>
+      <p>Number of Logs (Last 7 Days): {{ sleepinessLogsLast7Days.length }}</p>
+      <p>Average Sleepiness: {{ averageSleepinessLast7Days | number:'1.1-2' }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)" class="ion-padding">
+    <ion-segment-button value="overnight">
+      <ion-label>Overnight Sleep</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="sleepiness">
+      <ion-label>Sleepiness</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list *ngIf="selectedSegment === 'overnight'">
+    <ion-item *ngFor="let sleep of allOvernightData">
+      <ion-label>
+        <h2>
+          {{ getSleepStart(sleep) | date:'shortTime' }} - {{ getSleepEnd(sleep) | date:'shortTime' }}
+        </h2>
+        <p>{{ getSleepStart(sleep) | date:'mediumDate' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="selectedSegment === 'sleepiness'">
+    <ion-item *ngFor="let sleepiness of allSleepinessData">
+      <ion-label>
+        <h2>Sleepiness: {{ getLoggedValue(sleepiness) }}</h2>
+        <p>
+          {{ getLoggedAt(sleepiness) | date:'shortTime' }} on {{ getLoggedAt(sleepiness) | date:'mediumDate' }}
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openAddMenu()">
+      <span class="fab-plus">+</span>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
